@@ -75,7 +75,7 @@ let hoveredCard = null;
 let showIntro = true;
 let introCard = null;
 let isIntroSequence = false;
-const cacheBuster = Date.now();
+const cacheBuster = '1.0.1';
 const backgroundTransition = {
     isActive: false,
     startColor: new THREE.Color(),
@@ -336,6 +336,41 @@ function loadTexture(path, isDataTexture = false) {
                 reject(error);
             }
         );
+    });
+}
+
+// =============================================================================
+// PRELOAD ALL TEXTURES
+// =============================================================================
+async function preloadAllTextures() {
+    const sets = Array.from({ length: CONFIG.TOTAL_IMAGE_SETS }, (_, i) => i + 1);
+    
+    // Core textures that must exist
+    const coreTextures = [
+        { path: 'images/back.png', isData: false },
+        { path: 'images/normal/back-normal.png', isData: true },
+        { path: 'images/roughness/back-roughness.png', isData: true },
+        { path: 'images/roughness/card-roughness.png', isData: true },
+        { path: 'images/intro.png', isData: false },
+    ];
+
+    // Optional or set-specific textures
+    const setTextures = [];
+    sets.forEach(setNum => {
+        setTextures.push({ path: `images/idea-${setNum}.png`, isData: false });
+        setTextures.push({ path: `images/execution-${setNum}.png`, isData: false });
+        setTextures.push({ path: `images/normal/execution-${setNum}-normal.png`, isData: true });
+        setTextures.push({ path: `images/roughness/execution-${setNum}-roughness.png`, isData: true });
+    });
+
+    const allToPreload = [...coreTextures, ...setTextures];
+
+    // Load everything in parallel. We don't await the whole thing in init
+    // to allow the intro to show up quickly, but we start it early.
+    allToPreload.forEach(item => {
+        loadTexture(item.path, item.isData).catch(() => {
+            // Missing textures are fine, the Card class handles them
+        });
     });
 }
 
@@ -1221,8 +1256,9 @@ function animate(currentTime) {
 // =============================================================================
 async function init() {
     SoundManager.init();
+    preloadAllTextures(); // Start preloading early in the background
     initScene();
-    await createCards();  // Wait for all cards and textures to be ready
+    await createCards();  // Wait for all cards and basic textures to be ready
     if (showIntro) {
         hideCardsForIntro();
     }
