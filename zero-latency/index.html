@@ -18,6 +18,18 @@
         </div>
     </div>
     <div id="canvas-container"></div>
+    <script>
+        // BFCache 대응: 페이지가 캐시에서 복원될 때 로딩창 제거
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                const overlay = document.getElementById('loading-overlay');
+                if (overlay) {
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '0';
+                }
+            }
+        });
+    </script>
     <script type="importmap">
     {
         "imports": {

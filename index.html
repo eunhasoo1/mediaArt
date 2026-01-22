@@ -61,6 +61,16 @@
         </div>
     </div>
     <script>
+        // 뒤로가기 시 로딩창이 남아있는 문제 해결 (BFCache 대응)
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                const overlay = document.getElementById('loading-overlay');
+                const progress = document.getElementById('loading-progress-container');
+                overlay.style.display = 'none';
+                progress.style.width = '0%';
+            }
+        });
+
         document.querySelectorAll('.art-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 // dimension-prism은 제외할 수도 있지만 일단 공통 적용
