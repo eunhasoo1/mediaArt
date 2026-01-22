@@ -32,6 +32,25 @@ const CONFIG = {
 };
 const HDRI_PATH = './assets/studio.hdr';
 
+// --- LOADING MANAGER ---
+const loadingManager = new THREE.LoadingManager();
+const progressBar = document.getElementById('loading-progress-container');
+const loadingOverlay = document.getElementById('loading-overlay');
+
+loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
+    const progress = (itemsLoaded / itemsTotal) * 100;
+    if (progressBar) progressBar.style.width = progress + '%';
+};
+
+loadingManager.onLoad = () => {
+    if (loadingOverlay) {
+        loadingOverlay.style.opacity = '0';
+        setTimeout(() => {
+            loadingOverlay.style.display = 'none';
+        }, 500);
+    }
+};
+
 // --- SCENE SETUP ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -48,7 +67,7 @@ document.getElementById('canvas-container').appendChild(renderer.domElement);
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
-new RGBELoader()
+new RGBELoader(loadingManager)
     .load(HDRI_PATH, (texture) => {
         const envMap = pmremGenerator.fromEquirectangular(texture).texture;
         scene.environment = envMap;
@@ -94,7 +113,7 @@ const hologramMaterial = new THREE.MeshPhysicalMaterial({
     sheen: 0.6,
     sheenRoughness: 0.4
 });
-const microNormalMap = new THREE.TextureLoader().load(
+const microNormalMap = new THREE.TextureLoader(loadingManager).load(
     'https://threejs.org/examples/textures/water/Water_1_M_Normal.jpg',
     (texture) => {
         texture.wrapS = THREE.RepeatWrapping;
@@ -111,7 +130,7 @@ const interactiveObjects = [];
 let currentIndex = 0;
 let activeObject = null;
 
-const gltfLoader = new GLTFLoader();
+const gltfLoader = new GLTFLoader(loadingManager);
 
 // Helper: Apply holographic material to all meshes in a group/scene
 function applyHoloMaterial(obj) {

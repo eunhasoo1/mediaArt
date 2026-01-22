@@ -309,9 +309,30 @@ function introDropInNoBounce(card, zOffset, onComplete) {
 }
 
 // =============================================================================
+// LOADING MANAGER
+// =============================================================================
+const loadingManager = new THREE.LoadingManager();
+const progressBar = document.getElementById('loading-progress-container');
+const loadingOverlay = document.getElementById('loading-overlay');
+
+loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
+    const progress = (itemsLoaded / itemsTotal) * 100;
+    if (progressBar) progressBar.style.width = progress + '%';
+};
+
+loadingManager.onLoad = () => {
+    if (loadingOverlay) {
+        loadingOverlay.style.opacity = '0';
+        setTimeout(() => {
+            loadingOverlay.style.display = 'none';
+        }, 500);
+    }
+};
+
+// =============================================================================
 // TEXTURE LOADER
 // =============================================================================
-const textureLoader = new THREE.TextureLoader();
+const textureLoader = new THREE.TextureLoader(loadingManager);
 const textureCache = new Map();
 
 function loadTexture(path, isDataTexture = false) {

@@ -42,8 +42,17 @@
             border-radius: 0px;
         }
     </style>
+    <link rel="stylesheet" href="loading.css">
 </head>
 <body>
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-container">
+            <div class="loading-text-base" id="loading-text-base">TITLE</div>
+            <div class="loading-progress-container" id="loading-progress-container">
+                <div class="loading-text-overlay" id="loading-text-overlay">TITLE</div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="art-list">
             <a href="/dimension-prism/" class="art-link">Dimension Prism</a>
@@ -51,5 +60,31 @@
             <a href="/just-vibe/" class="art-link">just vibe</a>
         </div>
     </div>
+    <script>
+        document.querySelectorAll('.art-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // dimension-prism은 제외할 수도 있지만 일단 공통 적용
+                e.preventDefault();
+                const title = this.textContent;
+                const href = this.getAttribute('href');
+                
+                const overlay = document.getElementById('loading-overlay');
+                document.getElementById('loading-text-base').textContent = title;
+                document.getElementById('loading-text-overlay').textContent = title;
+                
+                overlay.style.display = 'flex';
+                
+                // 가짜 진행률 시작 (다음 페이지로 넘어가기 전 시각적 피드백)
+                const progress = document.getElementById('loading-progress-container');
+                setTimeout(() => {
+                    progress.style.width = '20%';
+                }, 10);
+
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 400);
+            });
+        });
+    </script>
 </body>
 </html>
