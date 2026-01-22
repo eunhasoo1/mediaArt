@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holographic Card</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manufacturing-consent/index.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="canvas-container"></div>
+    
+    <!-- Sci-Fi Text Overlays -->
+    <div class="scifi-text top-left">
+        <span class="label">SYS.STATUS</span>
+        <span class="value">ACTIVE</span>
+        <span class="coords">[42.3601° N, 71.0589° W]</span>
+    </div>
+    
+    <div class="scifi-text top-right">
+        <span class="label">HOLO-CARD // v2.6</span>
+        <span class="value blink">● RENDERING</span>
+    </div>
+    
+    <div class="scifi-text bottom-right">
+        <span class="data-stream">0x7F3A_9B2C_4D1E</span>
+        <span class="data-stream">NODE.SYNC: 99.7%</span>
+        <span class="data-stream">FRAME: <span id="frame-counter">0000</span></span>
+    </div>
+    
+    <div class="scifi-bracket top-left-bracket"></div>
+    <div class="scifi-bracket top-right-bracket"></div>
+    <div class="scifi-bracket bottom-left-bracket"></div>
+    <div class="scifi-bracket bottom-right-bracket"></div>
+    
+    <div class="overlay">
+        <h1 id="main-title">CARD</h1>
+        <p>Interactive 3D Art</p>
+    </div>
+    <div id="invert-overlay"></div>
+    <div id="invert-cursor"></div>
+    <div id="invert-cursor-small"></div>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
