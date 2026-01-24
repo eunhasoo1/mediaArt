@@ -23,7 +23,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const artworkId = urlParams.get('artwork') || 'just-vibe';
 
 // Fetch Configuration
-fetch('./data/artworks.json')
+fetch('/ticket/data/artworks.json')
     .then(response => response.json())
     .then(data => {
         ARTWORKS = data;
