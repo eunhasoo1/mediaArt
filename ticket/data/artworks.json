@@ -1,0 +1,26 @@
+{
+    "to-do": {
+        "displayName": "04 TO DO",
+        "posterPath": "../to-do/assets/poster/toDo_asset.png",
+        "createdDate": "260123",
+        "color": "#CCFF00"
+    },
+    "just-vibe": {
+        "displayName": "03 JUST VIBE",
+        "posterPath": "../just-vibe/assets/poster/justVibe_asset.png",
+        "createdDate": "260122",
+        "color": "#CCFF00"
+    },
+    "zero-latency": {
+        "displayName": "02 ZERO LATENCY",
+        "posterPath": "../zero-latency/assets/poster/zeroLatency_asset.png",
+        "createdDate": "260120",
+        "color": "#CCFF00"
+    },
+    "dimension-prism": {
+        "displayName": "01 DIMENSION PRISM",
+        "posterPath": "../dimension-prism/assets/poster/dimensionPrism_asset.png",
+        "createdDate": "260119",
+        "color": "#CCFF00"
+    }
+}

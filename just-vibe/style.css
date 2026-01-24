@@ -182,6 +182,25 @@ body {
     z-index: 10;
 }
 
+/* Enable pointer events for children (like the download icon) */
+.overlay * {
+    pointer-events: auto;
+}
+
+.download-icon {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.download-icon:hover {
+    color: #CCFF00; /* Neon Green */
+    transform: translateY(-2px);
+    filter: drop-shadow(0 0 5px rgba(204, 255, 0, 0.5));
+}
+
 h1 {
     font-size: 2.5rem;
     margin: 0;

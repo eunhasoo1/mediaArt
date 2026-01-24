@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to-do - Media Art</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../loading.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+    <!-- CRT / Sci-Fi Effects -->
+    <div class="crt-effects"></div>
+    <div class="noise-overlay"></div>
+    <div class="glitch-line"></div>
+
+    <div id="ui-overlay">
+        <div class="download-ui">
+            <a href="/ticket/?artwork=to-do" class="download-icon" aria-label="Get Ticket">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+            </a>
+        </div>
+        <div class="corner top-left-marker"></div>
+        <div class="corner top-right-marker"></div>
+        <div class="corner bottom-left-marker"></div>
+        <div class="corner bottom-right-marker"></div>
+
+        <div class="top-left-text">
+            <div id="gibberish-text-1" class="gibberish">good morning,</div>
+            <div id="gibberish-text-2" class="gibberish">Here are your priorities for today.</div>
+        </div>
+
+        <div class="top-right-title">
+            <div id="big-number-display" class="big-number">04</div>
+            <div id="gothic-title-display" class="gothic-title">to do</div>
+        </div>
+
+        <div class="middle-right-info">
+            <div id="info-date-display" class="info-line">Haeun 260123</div>
+            <div class="info-line red-text">good morning</div>
+            <div id="status-mode-text" class="info-line red-text">restriction mode activated</div>
+            <div class="progress-container">
+                <span class="progress-bar">[-------------------------]</span>
+                <span class="progress-label">progress</span>
+            </div>
+        </div>
+
+        <div class="bottom-left-logs"></div>
+    </div>
+
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-container">
+            <div class="loading-text-base" id="loading-text-base">TO-DO</div>
+            <div class="loading-progress-container" id="loading-progress-container">
+                <div class="loading-text-overlay" id="loading-text-overlay">TO-DO</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

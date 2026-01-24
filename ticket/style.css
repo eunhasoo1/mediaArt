@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70%; /* Give space for UI at bottom */
+}
+
+.ui-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none; /* Let clicks pass through if needed, but input needs pointer-events */
+}
+
+.input-group {
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+label {
+    color: #CCFF00;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #CCFF00;
+    color: #ffffff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 5px;
+    width: 200px;
+    outline: none;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.download-btn {
+    position: absolute;
+    right: -40px;
+    bottom: 5px;
+    background: transparent;
+    border: none;
+    color: #CCFF00;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.download-btn:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    filter: drop-shadow(0 0 5px rgba(204, 255, 0, 0.5));
+}
+
+.timestamp {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}

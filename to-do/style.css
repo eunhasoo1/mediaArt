@@ -1,0 +1,266 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000;
+    font-family: 'Space Mono', monospace;
+    color: #444;
+}
+
+#canvas-container {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#ui-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 10;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+/* Download UI */
+.download-ui {
+    position: absolute;
+    bottom: 150px; /* Shifted up above logs */
+    left: 40px;
+    pointer-events: none;
+    z-index: 90;
+}
+.download-ui * {
+    pointer-events: auto;
+}
+.download-icon {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.download-icon:hover {
+    color: #CCFF00; /* Neon Green */
+    transform: translateY(-2px);
+    filter: drop-shadow(0 0 5px rgba(204, 255, 0, 0.5));
+}
+
+/* Corner Markers */
+.corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.top-left-marker { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+.top-right-marker { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+.bottom-left-marker { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+.bottom-right-marker { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+/* Top Left Text */
+.top-left-text {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+}
+
+.gibberish {
+    color: #444;
+}
+
+/* Top Right Title */
+.top-right-title {
+    position: absolute;
+    top: 24px;
+    right: 48px;
+    text-align: right;
+    color: #fff;
+}
+
+.big-number {
+    font-size: 220px;
+    font-weight: 700;
+    line-height: 0.85;
+    margin-bottom: -6px;
+}
+
+.gothic-title {
+    font-family: 'Pirata One', cursive;
+    font-size: 72px;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+}
+
+/* Bottom Right Info */
+.middle-right-info {
+    position: absolute;
+    bottom: 40px;
+    right: 52px;
+    text-align: right;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+}
+
+.info-line {
+    margin-bottom: 4px;
+}
+
+.red-text {
+    color: #444; /* Default to grey for 'todo' mode */
+}
+
+.mode-not-todo .red-text {
+    color: #ff3333;
+}
+
+.progress-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.progress-bar {
+    letter-spacing: -2px;
+}
+
+.progress-label {
+    font-size: 10px;
+}
+
+/* Bottom Left Logs */
+.bottom-left-logs {
+    position: absolute;
+    bottom: 40px;
+    left: 40px; /* Reset left position */
+    width: 200px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 9px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    color: #444;
+}
+
+.mode-not-todo .bottom-left-logs {
+    color: #ff3333;
+}
+
+.log-line {
+    opacity: 0.8;
+}
+
+.log-line:last-child {
+    opacity: 1;
+    font-weight: bold;
+}
+
+/* --- CRT / SCI-FI EFFECTS --- */
+
+/* CRT Effects Container */
+.crt-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Scan Lines */
+.crt-effects::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+    );
+    pointer-events: none;
+    opacity: var(--scanline-opacity, 0.4);
+    transition: opacity 0.5s ease;
+}
+
+/* Vignette Effect */
+.crt-effects::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 50%,
+        rgba(0, 0, 0, 0.3) 80%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
+    pointer-events: none;
+    opacity: var(--vignette-opacity, 0.6);
+    transition: opacity 0.5s ease;
+}
+
+/* Noise/Grain Overlay */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 6;
+    opacity: var(--noise-opacity, 0.04);
+    transition: opacity 0.5s ease;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Glitch line effect (optional, for not-todo mode) */
+.glitch-line {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 50, 50, 0.3);
+    pointer-events: none;
+    z-index: 7;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.mode-not-todo .glitch-line {
+    animation: glitchScan 3s infinite;
+}
+
+@keyframes glitchScan {
+    0%, 100% { top: -2px; opacity: 0; }
+    10% { opacity: 0.6; }
+    20% { top: 30%; opacity: 0.4; }
+    40% { top: 60%; opacity: 0.5; }
+    60% { top: 80%; opacity: 0.3; }
+    80% { top: 100%; opacity: 0; }
+}
+
+/* Mode-specific intensity adjustments */
+/* Empty - handled by JS variables */
